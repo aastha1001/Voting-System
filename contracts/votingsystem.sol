@@ -29,5 +29,9 @@ contract Voting{
 
     function vote (uint _candidateID) view public{
         require (_candidateID>0 && _candidateID<=candidateCount, "Invalid ID");
+        require (!hasVoted[msg.sender], "Already voted");
+        candidates[_candidateID].voteCount++;
+        hasVoted[msg.sender] = true;
+    }
     }
 }
