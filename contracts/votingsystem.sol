@@ -33,5 +33,9 @@ contract Voting{
         candidates[_candidateID].voteCount++;
         hasVoted[msg.sender] = true;
     }
+    
+    function getVoteCount (uint _candidateID) public view returns(uint){
+        require (_candidateID>0 && _candidateID<=candidateCount, "Invalid Candidate ID");
+        return candidates[_candidateID].voteCount;
     }
 }
