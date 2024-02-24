@@ -9,9 +9,16 @@ contract Voting{
         uint voteCount;
     }
 
-    mapping (uint => Candidate) public candidates;
+    mapping (uint => Candidate) public getcandidates;
 
-    mapping (address => bool) public hasVoted;
+    struct Voter {
+        bool hasVoted;
+        uint256 voteChoice;
+    }
+
+    mapping(address => Voter) public voters;
+
+    //mapping (address => bool) public hasVoted;
 
     uint public candidateCount;
 
@@ -24,18 +31,18 @@ contract Voting{
 
     function addCandidate (string memory name) private{
         candidateCount++;
-        candidates[candidateCount] = Candidate(candidateCount, name, 0);
+        getcandidates[candidateCount] = Candidate(candidateCount, name, 0);
     }
 
-    function vote (uint _candidateID) view public{
+    function vote (uint _candidateID) public{
         require (_candidateID>0 && _candidateID<=candidateCount, "Invalid ID");
-        require (!hasVoted[msg.sender], "Already voted");
-        candidates[_candidateID].voteCount++;
-        hasVoted[msg.sender] = true;
+        require (!voters[msg.sender].hasVoted, "Already voted");
+        voters[msg.sender] = Voter({hasVoted: true, voteChoice: _candidateID});
+        getcandidates[_candidateID].voteCount++;
     }
     
     function getVoteCount (uint _candidateID) public view returns(uint){
         require (_candidateID>0 && _candidateID<=candidateCount, "Invalid Candidate ID");
-        return candidates[_candidateID].voteCount;
+        return getcandidates[_candidateID].voteCount;
     }
 }
