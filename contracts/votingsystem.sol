@@ -18,8 +18,6 @@ contract Voting{
 
     mapping(address => Voter) public voters;
 
-    //mapping (address => bool) public hasVoted;
-
     uint public candidateCount;
 
     constructor (string[] memory _candidateName) {
