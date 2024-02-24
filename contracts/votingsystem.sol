@@ -45,4 +45,16 @@ contract Voting{
         require (_candidateID>0 && _candidateID<=candidateCount, "Invalid Candidate ID");
         return getcandidates[_candidateID].voteCount;
     }
+
+    function winner() public view returns (uint winnerID, string memory winnerName, uint Votes){
+        uint winningVote = 0;
+        for (uint256 i=0; i<=candidateCount; i++){
+            if (getcandidates[i].voteCount > winningVote){
+                winningVote = getcandidates[i].voteCount;
+                winnerID = i;
+            }
+            winnerName = getcandidates[winnerID].name;
+            Votes = getcandidates[winnerID].voteCount;
+        }
+    }
 }
