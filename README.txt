@@ -1,3 +1,5 @@
+Go to contracts -> votingsystem.sol
+
 REMIX DEFAULT WORKSPACE
 
 Remix default workspace is present when:
